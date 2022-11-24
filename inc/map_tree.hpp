@@ -40,14 +40,15 @@ public:
 	typedef				ft::pair<const key_type, mapped_type>	pair;
 	typedef				ft::node<const key_type, mapped_type>	node;
 
-	typedef				Alloc									allocator_type;
-	typedef typename	allocator_type::size_type				size_type;
+	typedef				std::allocator<node>					allocator_node;
+	typedef				Alloc									allocator_pair;
+	typedef typename	allocator_pair::size_type				size_type;
 	typedef				node *									pointer;
 
 	// CONSTRUCTOR
 
-	map_tree( const allocator_type & alloc = allocator_type() )
-			: _root(NULL), _end(NULL), _alloc(alloc), _size(0) {
+	map_tree( const allocator_pair & alloc = allocator_pair(), const allocator_node & allocB = allocator_node())
+			: _root(NULL), _end(NULL), _alloc(alloc), _allocB(allocB), _size(0) {
 		_end_update();
 		return ;
 	}
@@ -57,7 +58,7 @@ public:
 		return ;
 	}
 
-	virtual	~map_tree() {
+	~map_tree() {
 		clear();
 		_destroyNode(_end);
 		_size++;
@@ -66,6 +67,9 @@ public:
 
 	map_tree &	operator=( map_tree const & rhs ) {
 		clear();
+		_size = 0;
+		_alloc = rhs._alloc;
+		_allocB = rhs._allocB;
 		_copy(rhs._root);
 		return *this;
 	}
@@ -107,7 +111,7 @@ public:
 
 		if (root == NULL)
 			return root;
-	
+
 		if (key < root->data.first) {
 			root->left = remove(root->left, key);
 			if (root->left)
@@ -135,7 +139,7 @@ public:
 			}
 
 			pointer temp = min(root->right);
-			
+
 			pointer cpy = _newNode(temp->data, root->top);
 			cpy->left = root->left;
 			cpy->right = root->right;
@@ -147,7 +151,7 @@ public:
 		return root;
 	}
 
-	
+
 
 	void	clear( void ) {
 		_root = _clear(_root);
@@ -221,11 +225,11 @@ public:
 private:
 
 	pointer	_newNode( const pair & data, pointer parent ) {
-		pointer newNode = _alloc.allocate(1);
+		pointer newNode = _allocB.allocate(1);
 		newNode->left = NULL;
 		newNode->right = NULL;
 		newNode->top = parent;
-		std::allocator<pair>().construct(&newNode->data, data);
+		_alloc.construct(&newNode->data, data);
 		_size++;
 		return newNode;
 	}
@@ -235,8 +239,8 @@ private:
 		if (node == NULL)
 			return ;
 
-		std::allocator<pair>().destroy(&node->data);
-		_alloc.deallocate(node, 1);
+		_alloc.destroy(&node->data);
+		_allocB.deallocate(node, 1);
 		_size--;
 	}
 
@@ -277,7 +281,8 @@ private:
 
 	pointer					_root;
 	pointer					_end;
-	allocator_type			_alloc;
+	allocator_pair			_alloc;
+	allocator_node			_allocB;
 	size_type				_size;
 
 };

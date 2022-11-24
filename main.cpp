@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:44:08 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/17 16:44:59 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 23:07:26 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	isFind(std::string cmds[], std::string cmd) {
 	return false;
 }
 
-int	main(int arg, char **argv) {
+int	main(int argc, char **argv) {
 
 	std::string cmds[] = {
 		"map",
@@ -38,7 +38,7 @@ int	main(int arg, char **argv) {
 		"end"
 	};
 
-	if (arg != 2 || !isFind(cmds, argv[1])) {
+	if (argc != 2 || !isFind(cmds, argv[1])) {
 		std::cout << "usage :" << std::endl;
 		for (size_t i = 0; i < cmds_size(cmds); i++)
 			std::cout << "       ./check " << cmds[i] << std::endl;
@@ -50,6 +50,10 @@ int	main(int arg, char **argv) {
 			test_vector();
 		else if (argv[1] == cmds[2])
 			test_bst();
+		else if (argv[1] == cmds[3])
+			test_stack();
+		else if (argv[1] == cmds[4])
+			test_speed(argc, argv);
 	}
 
 }

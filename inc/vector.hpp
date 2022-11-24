@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:20:28 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/22 10:38:13 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 23:05:07 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,13 @@ public:
 		return *this;
 	}
 
-	virtual	~vector( void ) {
+	~vector( void ) {
+		while (_size)
+			_alloc.destroy(&_ptr[--_size]);
 		if (_capacity > 0) {
 			_alloc.deallocate(_ptr, _capacity);
 		}
+		std::cout << "destructor vector" << std::endl;
 		return ;
 	}
 
@@ -151,7 +154,7 @@ public:
 		pointer	new_alloc;
 
 		if (n > max_size())
-			throw std::length_error("vector max size too high");
+			throw std::length_error("Error: ft::vector::reserve - Length max exception");
 		if (n > _capacity) {
 			new_alloc = _alloc.allocate(n);
 			for (size_type i = 0; i < _size; i++)
@@ -187,13 +190,13 @@ public:
 
 	reference at (size_type n) {
 		if (n >= _size)
-			throw std::out_of_range("access to vector addresses not allowed");
+			throw std::out_of_range("Error: ft::vector::at - Out of range exception");
 		return _ptr[n];
 	}
 
 	const_reference at (size_type n) const {
 		if (n >= _size)
-			throw std::out_of_range("access to vector addresses not allowed");
+			throw std::out_of_range("Error: ft::vector::at - Out of range exception");
 		return _ptr[n];
 	}
 

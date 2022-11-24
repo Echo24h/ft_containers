@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:43:17 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 04:32:39 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:23:34 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	test_bst( void ) {
 
-	ft::map_tree< const int, int, std::allocator< ft::node< const int, int > > > tree;
+	std::cout << RED << "test_bst.cpp is not configure" << DEF << std::endl;
 
-	
+	/*ft::map_tree< const int, int, std::allocator< ft::node< const int, int > > > tree;
+
+
 	//tree.insert(ft::make_pair(4,4));
 	tree.insert(ft::make_pair(1,1));
 	std::cout << GREEN << "insert 4 => 4 | 1 => 1"  << DEF << std::endl;
@@ -62,6 +64,6 @@ int	test_bst( void ) {
 	tree.clear();
 	tree.clear();
 	//tree.insert(ft::make_pair(10,2));
-	//tree.insert(ft::make_pair(5,2));
+	//tree.insert(ft::make_pair(5,2));*/
 	return 0;
 }

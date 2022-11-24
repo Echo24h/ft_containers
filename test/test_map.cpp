@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:14:06 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 06:04:54 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 18:58:50 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	test_map( void ) {
 			check_pair("it-- (x30)", stdIt, ftIt);
 
 			// Test for Ubuntu, C++11
-			
+
 			/*for (int i = 0; i < 60; i++)
 				stdIt++, ftIt++;
 			check_pair("it++ (x60)", stdIt, ftIt, true);
@@ -208,7 +208,7 @@ int	test_map( void ) {
 				stdRit--, ftRit--;
 			check_rconst_pair("crit-- (60)", stdRit, ftRit);*/
 
-			
+
 			check_rconst_pair("--crit", --stdRit, --ftRit);
 			check_rconst_pair("--crit", --stdRit, --ftRit);
 			//check_rconst_pair("--crit", --stdRit, --ftRit);
@@ -353,7 +353,7 @@ int	test_map( void ) {
 
 		std::cout << MAGENTA << "erase()" << DEF << std::endl;
 
-		
+
 		check("erase(10)", new_std_map.erase(10), new_ft_map.erase(10));
 		check("erase(30)", new_std_map.erase(30), new_ft_map.erase(30));
 		check("erase(-10)", new_std_map.erase(-10), new_ft_map.erase(-10));
@@ -361,11 +361,11 @@ int	test_map( void ) {
 		new_std_map.erase(new_std_map.begin());
 		new_ft_map.erase(new_ft_map.begin());
 		check_map_cont("erase(begin())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
-		
+
 		new_std_map.erase(--new_std_map.end());
 		new_ft_map.erase(--new_ft_map.end());
 		check_map_cont("erase(--end())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
-		
+
 		new_std_map.erase(new_std_map.begin(), --new_std_map.end());
 		new_ft_map.erase(new_ft_map.begin(), --new_ft_map.end());
 		check_map_cont("erase(++begin(), --end())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
@@ -375,7 +375,7 @@ int	test_map( void ) {
 
 		//print_ft_map(new_ft_map);
 		//print_std_map(new_std_map);
-		
+
 		new_std_map.swap(std_map);
 		new_ft_map.swap(ft_map);
 		check_map_cont("swap()", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
@@ -396,6 +396,58 @@ int	test_map( void ) {
 		new_ft_map.clear();
 		check_map_cont("clear()", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
 		check("size()", new_std_map.size(), new_ft_map.size());
+
+	}
+
+	std::cout << YELLOW << "OPERATIONS TEST" << DEF << std::endl;
+
+	{
+		check_pair("begin()", std_map.begin(), ft_map.begin());
+		check_pair("--end()", --std_map.end(), --ft_map.end());
+		check_pair("find(5)", std_map.find(5), ft_map.find(5));
+		check_pair("find(1)", std_map.find(1), ft_map.find(1));
+		check_pair("find(0)", std_map.find(0), ft_map.find(0));
+		check_pair("find(-1)", std_map.find(-1), ft_map.find(-1));
+		check_pair("find(100)", std_map.find(100), ft_map.find(100));
+		//check_pair("find(1000)", std_map.find(1000), ft_map.find(1000), true);
+		check("count(5)", std_map.count(5), ft_map.count(5));
+		check("count(1)", std_map.count(1), ft_map.count(1));
+		check("count(0)", std_map.count(0), ft_map.count(0));
+		check("count(-1)", std_map.count(-1), ft_map.count(-1));
+		check("count(100)", std_map.count(100), ft_map.count(100));
+		check("count(-50)", std_map.count(-50), ft_map.count(-50));
+		check_pair("lower_bound(5)", std_map.lower_bound(5), ft_map.lower_bound(5));
+		check_pair("lower_bound(1)", std_map.lower_bound(1), ft_map.lower_bound(1));
+		check_pair("lower_bound(0)", std_map.lower_bound(0), ft_map.lower_bound(0));
+		check_pair("lower_bound(-1)", std_map.lower_bound(-1), ft_map.lower_bound(-1));
+		check_pair("lower_bound(100)", std_map.lower_bound(100), ft_map.lower_bound(100));
+		//check_pair("lower_bound(1000)", std_map.lower_bound(1000), ft_map.lower_bound(1000));
+		check_pair("lower_bound(-1000)", std_map.lower_bound(-1000), ft_map.lower_bound(-1000));
+		check_pair("upper_bound(5)", std_map.upper_bound(5), ft_map.upper_bound(5));
+		check_pair("upper_bound(1)", std_map.upper_bound(1), ft_map.upper_bound(1));
+		check_pair("upper_bound(0)", std_map.upper_bound(0), ft_map.upper_bound(0));
+		check_pair("upper_bound(-1)", std_map.upper_bound(-1), ft_map.upper_bound(-1));
+		check_pair("upper_bound(99)", std_map.upper_bound(99), ft_map.upper_bound(99));
+		//check_pair("upper_bound(100)", std_map.upper_bound(100), ft_map.upper_bound(100));
+		//check_pair("upper_bound(1000)", std_map.upper_bound(1000), ft_map.upper_bound(1000));
+		check_pair("upper_bound(-1000)", std_map.upper_bound(-1000), ft_map.upper_bound(-1000));
+
+		check_pair("equal_range(5).first", std_map.equal_range(5).first, ft_map.equal_range(5).first);
+		check_pair("equal_range(5).second", std_map.equal_range(5).second, ft_map.equal_range(5).second);
+		check_pair("equal_range(1).first", std_map.equal_range(1).first, ft_map.equal_range(1).first);
+		check_pair("equal_range(1).second", std_map.equal_range(1).second, ft_map.equal_range(1).second);
+		check_pair("equal_range(0).first", std_map.equal_range(0).first, ft_map.equal_range(0).first);
+		check_pair("equal_range(0).second", std_map.equal_range(0).second, ft_map.equal_range(0).second);
+		check_pair("equal_range(-1).first", std_map.equal_range(-1).first, ft_map.equal_range(-1).first);
+		check_pair("equal_range(-1).second", std_map.equal_range(-1).second, ft_map.equal_range(-1).second);
+		check_pair("equal_range(99).first", std_map.equal_range(99).first, ft_map.equal_range(99).first);
+		check_pair("equal_range(99).second", std_map.equal_range(99).second, ft_map.equal_range(99).second);
+		check_pair("equal_range(100).first", std_map.equal_range(100).first, ft_map.equal_range(100).first);
+		//check_pair("equal_range(100).second", std_map.equal_range(100).second, ft_map.equal_range(100).second);
+		//check_pair("equal_range(1000).first", std_map.equal_range(1000).first, ft_map.equal_range(1000).first);
+		//check_pair("equal_range(1000).second", std_map.equal_range(1000).second, ft_map.equal_range(1000).second);
+		check_pair("equal_range(-1000).first", std_map.equal_range(-1000).first, ft_map.equal_range(-1000).first);
+		check_pair("equal_range(-1000).second", std_map.equal_range(-1000).second, ft_map.equal_range(-1000).second);
 
 	}
 

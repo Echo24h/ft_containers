@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:14:06 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 02:16:30 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:40:32 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int	test_vector( void ) {
 	check("size()", std_vector.size(), ft_vector.size());
 	check("max_size()", std_vector.max_size(), ft_vector.max_size());
 	//std_vector.shrink_to_fit(); ft_vector.shrink_to_fit();
-	std::cout << RED << "std::vector::shrink_to_fit() doesn't exist" << DEF << std::endl;
+	std::cout << BLUE << "shrink_to_fit() ignored with flag -std=c++98" << DEF << std::endl;
 	//check("shrink_to_fit()", std_vector.capacity(), ft_vector.capacity());
 	check_vec_cont("check content", std_vector, ft_vector);
 

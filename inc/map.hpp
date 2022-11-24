@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:21:32 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 06:07:48 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 20:32:16 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 namespace ft
 {
 
-template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator< ft::node<const Key,T> > >
+template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator< ft::pair<const Key,T> > >
 class map {
 
 public:
@@ -40,8 +40,14 @@ public:
 		key_compare comp;
 		value_compare (key_compare c) : comp(c) {}
 	public:
-		bool operator() (const value_type& x, const value_type& y) const {
+		bool operator() ( const value_type & x, const value_type & y ) const {
 			return comp(x.first, y.first);
+		}
+		bool operator() ( const value_type & x, const key_type & k ) const {
+			return comp(x.first, k);
+		}
+		bool operator() ( const key_type & x, const key_type & y ) const {
+			return comp(x, y);
 		}
 	};
 
@@ -220,7 +226,7 @@ public:
 	}
 
 	void erase ( iterator position ) {
-		
+
 		_tree.remove(position->first);
 		return;
 	}
@@ -234,11 +240,11 @@ public:
 			return 1;
 		return 0;
 	}
-	
+
     void erase ( iterator first, iterator last ) {
 
 		iterator tmp;
-		
+
 		while (first != last) {
 			tmp = first;
 			first++;
@@ -259,7 +265,7 @@ public:
 	// OBSERVERS
 
 	key_compare key_comp() const {
-		return key_compare();
+		return _comp;
 	}
 
 	value_compare value_comp() const {
@@ -267,6 +273,98 @@ public:
 	}
 
 	// OPERATIONS
+
+	iterator find ( const key_type & k ) {
+
+		node_pointer target = _tree.search(k);
+
+		if (target == NULL)
+			return iterator(_tree.end(), _tree.end());
+		return iterator(target, _tree.end());
+	}
+
+	const_iterator find (const key_type& k) const {
+
+		node_pointer target = _tree.search(k);
+
+		if (target == NULL)
+			return const_iterator(_tree.end(), _tree.end());
+		return const_iterator(target, _tree.end());
+	}
+
+	size_type count ( const key_type & k ) const {
+
+
+		node_pointer target = _tree.search(k);
+
+		if (target == NULL)
+			return 0;
+		return 1;
+	}
+
+	iterator lower_bound ( const key_type & k ) {
+
+		iterator it = begin();
+		iterator ite = end();
+
+		while (it != ite && _comp(it->first, k))
+			it++;
+
+		return it;
+	}
+
+	const_iterator lower_bound ( const key_type & k ) const {
+
+		const_iterator it = begin();
+		const_iterator ite = end();
+
+		while (it != ite && _comp(it->first, k))
+			it++;
+
+		return it;
+	}
+
+	iterator upper_bound ( const key_type & k ) {
+
+		iterator it = begin();
+		iterator ite = end();
+
+		while (it != ite && _comp(it->first, k))
+			it++;
+
+		if (it != ite && !((it == begin() || it == --ite) && k != it->first))
+			it++;
+
+		return it;
+	}
+
+	const_iterator upper_bound ( const key_type & k ) const {
+
+		const_iterator it = begin();
+		const_iterator ite = end();
+
+		while (it != ite && _comp(it->first, k))
+			it++;
+
+		if (it != ite && !((it == begin() || it == --ite) && k != it->first))
+			it++;
+
+		return it;
+	}
+
+	pair<iterator,iterator> equal_range ( const key_type & k ) {
+		return pair<iterator,iterator>(lower_bound(k), upper_bound(k));
+	}
+
+	pair<const_iterator,const_iterator> equal_range ( const key_type & k ) const {
+		return pair<const_iterator,const_iterator>(lower_bound(k), upper_bound(k));
+	}
+
+	// ALOCATOR
+
+	allocator_type get_allocator() const {
+		return _alloc;
+	}
 
 private:
 
