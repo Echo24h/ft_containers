@@ -1,3 +1,9 @@
+# Valgrind
+.dSYM
+
+# Executable
+check
+
 # Prerequisites
 *.d
 
