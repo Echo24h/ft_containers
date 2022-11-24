@@ -6,7 +6,7 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/04 23:16:53 by gborne            #+#    #+#              #
-#    Updated: 2022/11/24 01:40:46 by gborne           ###   ########.fr        #
+#    Updated: 2022/11/24 02:40:36 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CXXFLAGS		= -Wall -Wextra -Werror -std=c++98
 NAME			= check
 
 %.o : %.c
-	@$(CXX) $(CXXFLAGS) -o $@ -c $<
+	@$(CXX) $(CXXFLAGS) -I -o $@ -c $<
 
 all:			$(NAME)
 

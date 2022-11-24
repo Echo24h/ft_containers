@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:14:06 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 02:23:34 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 06:04:54 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,52 @@ int	test_map( void ) {
 		new_ft_map.insert(ft_map.begin(), ft_map.end());
 
 		check_map_cont("insert(begin(), end())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		check("size()", new_std_map.size(), new_ft_map.size());
+
+		std::cout << MAGENTA << "erase()" << DEF << std::endl;
+
+		
+		check("erase(10)", new_std_map.erase(10), new_ft_map.erase(10));
+		check("erase(30)", new_std_map.erase(30), new_ft_map.erase(30));
+		check("erase(-10)", new_std_map.erase(-10), new_ft_map.erase(-10));
+
+		new_std_map.erase(new_std_map.begin());
+		new_ft_map.erase(new_ft_map.begin());
+		check_map_cont("erase(begin())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		
+		new_std_map.erase(--new_std_map.end());
+		new_ft_map.erase(--new_ft_map.end());
+		check_map_cont("erase(--end())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		
+		new_std_map.erase(new_std_map.begin(), --new_std_map.end());
+		new_ft_map.erase(new_ft_map.begin(), --new_ft_map.end());
+		check_map_cont("erase(++begin(), --end())", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		check("size()", new_std_map.size(), new_ft_map.size());
+
+		std::cout << MAGENTA << "swap()/clear()" << DEF << std::endl;
+
+		//print_ft_map(new_ft_map);
+		//print_std_map(new_std_map);
+		
+		new_std_map.swap(std_map);
+		new_ft_map.swap(ft_map);
+		check_map_cont("swap()", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		check("size()", new_std_map.size(), new_ft_map.size());
+
+		//print_ft_map(new_ft_map);
+		//print_std_map(new_std_map);
+
+		new_std_map.swap(std_map);
+		new_ft_map.swap(ft_map);
+		check_map_cont("swap()", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		check("size()", new_std_map.size(), new_ft_map.size());
+
+		//print_ft_map(new_ft_map);
+		//print_std_map(new_std_map);
+
+		new_std_map.clear();
+		new_ft_map.clear();
+		check_map_cont("clear()", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
 		check("size()", new_std_map.size(), new_ft_map.size());
 
 	}

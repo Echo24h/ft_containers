@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:11:49 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 01:44:39 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 05:31:48 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 void	check( const std::string & test_name, const int & std_value, const int & ft_value, bool isNull = false );
 
 void	check_vec_cont( const std::string & test_name, std::vector<int> & std_cont, ft::vector<int> & ft_cont );
-
 
 void	check_pair( const std::string & test_name, 
 			const std::map<int, int>::iterator & std_value, 
@@ -61,6 +60,9 @@ void	check_pair_it( const std::string & test_name,
 void	check_map_cont( const std::string & test_name,
 			std::map<int, int>::iterator std_it, std::map<int, int>::iterator std_ite,
 			ft::map<int, int>::iterator ft_it, ft::map<int, int>::iterator ft_ite );
+
+void	print_std_map(std::map<int, int> map);
+void	print_ft_map(ft::map<int,int> map);
 
 int	test_vector( void );
 int	test_map( void );

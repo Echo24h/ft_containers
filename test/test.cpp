@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 01:29:40 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 01:44:00 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 05:39:14 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,18 +168,12 @@ void	check_map_cont( const std::string & test_name,
 	return ;
 }
 
-// MAP
-
-/*
-template < typename T, typename U >
-void	print_map(std::map<T, U> map) {
-	for (typename std::map<T, U>::iterator it = map.begin(); it != map.end(); ++it)
+void	print_std_map(std::map<int, int> map) {
+	for (std::map<int, int>::iterator it = map.begin(); it != map.end(); ++it)
 		std::cout << it->first << " => " << it->second << std::endl;
 }
 
-template < typename T, typename U >
-void	print_map(typename ft::map<T,U> map) {
-	for (typename ft::map<T,U>::iterator it = map.begin(); it != map.end(); ++it)
+void	print_ft_map(ft::map<int,int> map) {
+	for (ft::map<int,int>::iterator it = map.begin(); it != map.end(); ++it)
 		std::cout << it->first << " => " << it->second << std::endl;
 }
-*/

@@ -89,7 +89,6 @@ public:
 		if (_ptr == NULL) {
 			return *this;
 		}
-
 		if (_ptr == _end->right) {
 			if (_reverse == true)
 				operator--();

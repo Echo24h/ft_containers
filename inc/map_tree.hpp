@@ -19,6 +19,15 @@
 
 namespace ft {
 
+template < class Key, class T, class pair = ft::pair<const Key,T> >
+struct node {
+
+	pair	data;
+	node *	top;
+	node *	left;
+	node *	right;
+};
+
 template < class Key, class T, class Alloc >
 class map_tree {
 
@@ -56,9 +65,7 @@ public:
 	}
 
 	map_tree &	operator=( map_tree const & rhs ) {
-		_alloc = rhs._alloc;
-		_size = 0;
-		_root = NULL;
+		clear();
 		_copy(rhs._root);
 		return *this;
 	}
@@ -90,117 +97,60 @@ public:
 		return NULL;
 	}
 
-	bool	remove( const key_type & key ) {
-		return remove(_root, key);
+	void	remove( const key_type & key ) {
+		_root = remove(_root, key);
+		_end_update();
+		return ;
 	}
 
-	/*bool	remove( pointer node, const key_type & key ) {
-		pointer toRemove = search(node, key);
-		if (toRemove == NULL)
-			return false;
-		if (toRemove->right) {
+	pointer	remove ( pointer root, key_type key ) {
 
-		}
-
-	}*/
-
-	pointer	remove( pointer node, const key_type & key ) {
-
-		// Return if the tree is empty
-		if (node == NULL)
-			return node;
-		// Find the node to be deleted
-		if (key < node->data.first) {
-			node->left = remove(node->left, key);
-			if (node->left)
-				node->left->top = node;
-		}
-		else if(key > node->data.first) {
-			node->right = remove(node->right, key);
-			if (node->right)
-				node->right->top = node;
-		}
-		else {
-			// If the node is with only one child or no child
-			if (node->left == NULL) {
-				pointer temp = node->right;
-				return temp;
-			}
-			else if (node->right == NULL) {
-				pointer temp = node->left;
-				return temp;
-			}
-			// If the node has two children,
-			// place the inorder successor in position of the node to be deleted
-			pointer temp = min(node->right);
-
-			pointer cpy = _newNode(temp->data, node->top);
-			cpy->left = node->left;
-			cpy->right = node->right;
-			_destroyNode(node);
-			node = cpy;
-
-			// Delete the inorder successor
-			node->right = remove(node->right, temp->data.first);
-
-		}
-		return node;
-	}
-
-	/*Node* deletenode(Node* root, int k)
-	{
-		// Base case
 		if (root == NULL)
 			return root;
-		//If root->data is greater than k then we delete the root's subtree
-		if(root->data > k){
-			root->left = deletenode(root->left, k);
-			return root;
+	
+		if (key < root->data.first) {
+			root->left = remove(root->left, key);
+			if (root->left)
+				root->left->top = root;
 		}
-		else if(root->data < k){
-			root->right = deletenode(root->right, k);
-			return root;
-		}
-
-
-		// If one of the children is empty
-		if (root->left == NULL) {
-			Node* temp = root->right;
-			delete root;
-			return temp;
-		}
-		else if (root->right == NULL) {
-			Node* temp = root->left;
-			delete root;
-			return temp;
+		else if (key > root->data.first) {
+			root->right = remove(root->right, key);
+			if (root->right)
+				root->right->top = root;
 		}
 		else {
-			Node* Parent = root;
-			// Find successor of the node
-			Node *succ = root->right;
-			while (succ->left != NULL) {
-				Parent = succ;
-				succ = succ->left;
+			if (root->left==NULL and root->right==NULL) {
+				_destroyNode(root);
+				return NULL;
+			}
+			else if (root->left == NULL) {
+				pointer temp = root->right;
+				_destroyNode(root);
+				return temp;
+			}
+			else if (root->right == NULL) {
+				pointer temp = root->left;
+				_destroyNode(root);
+				return temp;
 			}
 
-			if (Parent != root)
-				Parent->left = succ->right;
-			else
-				Parent->right = succ->right;
+			pointer temp = min(root->right);
+			
+			pointer cpy = _newNode(temp->data, root->top);
+			cpy->left = root->left;
+			cpy->right = root->right;
+			_destroyNode(root);
+			root = cpy;
 
-			// Copy Successor Data
-			root->data = succ->data;
-
-			// Delete Successor and return root
-			delete succ;
-			return root;
+			root->right = remove(root->right, temp->data.first);
 		}
+		return root;
 	}
-};*/
+
+	
 
 	void	clear( void ) {
-		_clear(_root);
-		_root = NULL;
+		_root = _clear(_root);
 		_end_update();
 	}
 
@@ -259,6 +209,7 @@ public:
 		inOrder(_root);
 	}
 
+
 	void	inOrder( const pointer node ) const {
 		if(node == NULL)
 			return;
@@ -280,6 +231,10 @@ private:
 	}
 
 	void	_destroyNode( pointer node ) {
+
+		if (node == NULL)
+			return ;
+
 		std::allocator<pair>().destroy(&node->data);
 		_alloc.deallocate(node, 1);
 		_size--;
@@ -311,13 +266,13 @@ private:
 		return ;
 	}
 
-	// Don't use this function ! (or repare the NULL statement of the node starter)
-	void	_clear( pointer node ) {
+	pointer	_clear( pointer node ) {
 		if(node == NULL)
-			return;
-		_clear(node->left);
-		_clear(node->right);
+			return NULL;
+		node->left = _clear(node->left);
+		node->right = _clear(node->right);
 		_destroyNode(node);
+		return NULL;
 	}
 
 	pointer					_root;

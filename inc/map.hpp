@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:21:32 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 02:27:01 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 06:07:48 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,17 +216,57 @@ public:
 			insert(*first);
 			first++;
 		}
-
 		return ;
 	}
 
-	void erase ( iterator position );
+	void erase ( iterator position ) {
+		
+		_tree.remove(position->first);
+		return;
+	}
 
-	size_type erase ( const key_type & k );
+	size_type erase ( const key_type & k ) {
+
+		size_type lastSize = size();
+
+		_tree.remove(k);
+		if (size() != lastSize)
+			return 1;
+		return 0;
+	}
 	
-    void erase ( iterator first, iterator last );
+    void erase ( iterator first, iterator last ) {
+
+		iterator tmp;
+		
+		while (first != last) {
+			tmp = first;
+			first++;
+			erase(tmp);
+		}
+		return ;
+	}
+
+	void swap (map & x) {
+		map tmp = x;
+		x = *this;
+		*this = tmp;
+		return ;
+	}
 
 	void clear() { _tree.clear(); return ; }
+
+	// OBSERVERS
+
+	key_compare key_comp() const {
+		return key_compare();
+	}
+
+	value_compare value_comp() const {
+		return value_compare();
+	}
+
+	// OPERATIONS
 
 private:
 

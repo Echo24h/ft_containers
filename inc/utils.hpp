@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:32:34 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/22 21:55:28 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 05:26:33 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,17 +161,6 @@ namespace ft
 	pair<const T1,T2>	make_pair( const T1 x, T2 y ) {
 		return ( pair<const T1, T2>(x, y) );
 	}
-
-	// NODE
-
-	template < class Key, class T, class pair = ft::pair<const Key,T> >
-	struct node {
-
-		pair	data;
-		node *	top;
-		node *	left;
-		node *	right;
-	};
 
 } // namespace ft
 
