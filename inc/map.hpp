@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:21:32 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 02:19:28 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 02:27:01 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ public:
 
 	// ELEMENTS ACCESS
 
-	mapped_type & operator[] ( const key_type& k ) {
+	mapped_type & operator[] ( const key_type & k ) {
 
 		node_pointer node = _tree.search(k);
 
@@ -166,7 +166,7 @@ public:
 		return node->data.second;
 	}
 
-	mapped_type & at ( const key_type& k ) {
+	mapped_type & at ( const key_type & k ) {
 
 		node_pointer node = _tree.search(k);
 
@@ -175,7 +175,7 @@ public:
 		return node->data.second;
 	}
 
-	const mapped_type & at (const key_type& k) const {
+	const mapped_type & at ( const key_type & k ) const {
 		node_pointer node = _tree.search(k);
 
 		if (node == NULL)
@@ -186,7 +186,7 @@ public:
 
 	// MODIFIERS
 
-	pair<iterator,bool>	insert (const value_type & val) {
+	pair<iterator,bool>	insert ( const value_type & val ) {
 
 		node_pointer node = _tree.insert(val);
 
@@ -196,7 +196,7 @@ public:
 		return pair<iterator,bool>(iterator(node, _tree.end()), true);
 	}
 
-	iterator insert (iterator position, const value_type& val) {
+	iterator insert ( iterator position, const value_type & val ) {
 
 		node_pointer node = _tree.search(val.first);
 
@@ -210,7 +210,7 @@ public:
 	}
 
 	template <class InputIterator>
-	void insert (InputIterator first, InputIterator last) {
+	void insert ( InputIterator first, InputIterator last ) {
 
 		while (first != last) {
 			insert(*first);
@@ -219,6 +219,12 @@ public:
 
 		return ;
 	}
+
+	void erase ( iterator position );
+
+	size_type erase ( const key_type & k );
+	
+    void erase ( iterator first, iterator last );
 
 	void clear() { _tree.clear(); return ; }
 

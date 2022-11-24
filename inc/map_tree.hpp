@@ -39,7 +39,7 @@ public:
 
 	map_tree( const allocator_type & alloc = allocator_type() )
 			: _root(NULL), _end(NULL), _alloc(alloc), _size(0) {
-		end_update();
+		_end_update();
 		return ;
 	}
 
@@ -78,7 +78,7 @@ public:
 	pointer	insert( const pair & val, pointer & node, pointer parent ) {
 		if(node == NULL) {
 			node = _newNode(val, parent);
-			end_update(node);
+			_end_update(node);
 			return node;
 		}
 		else {
@@ -201,7 +201,7 @@ public:
 	void	clear( void ) {
 		_clear(_root);
 		_root = NULL;
-		end_update();
+		_end_update();
 	}
 
 	// OPERATIONS
@@ -218,25 +218,7 @@ public:
 		return search(node->left,key);
 	}
 
-	// return Node * contain datas for Before/After in Iterators
-	void	end_update( pointer node = NULL ) {
-		if (_end == NULL) {
-			_end = _newNode(pair(key_type(), mapped_type()), NULL);
-			_size--;
-		}
-		if (node != NULL && _end->left != NULL && _end->right != NULL) {
-			if ( node->data.first < _end->left->data.first )
-				_end->left = min();
-			if ( node->data.first > _end->right->data.first )
-				_end->right = max();
-		}
-		else {
-			_end->left = min();
-			_end->right = max();
-		}
-		return ;
-	}
-
+	// return Node * contain datas for Before/After in Iterators (~C++11)
 	pointer end ( void ) const {
 		return _end;
 	}
@@ -309,6 +291,24 @@ private:
 		_copy(node->left);
 		insert(node->data);
 		_copy(node->right);
+	}
+
+	void	_end_update( pointer node = NULL ) {
+		if (_end == NULL) {
+			_end = _newNode(pair(key_type(), mapped_type()), NULL);
+			_size--;
+		}
+		if (node != NULL && _end->left != NULL && _end->right != NULL) {
+			if ( node->data.first < _end->left->data.first )
+				_end->left = min();
+			if ( node->data.first > _end->right->data.first )
+				_end->right = max();
+		}
+		else {
+			_end->left = min();
+			_end->right = max();
+		}
+		return ;
 	}
 
 	// Don't use this function ! (or repare the NULL statement of the node starter)
