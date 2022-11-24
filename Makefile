@@ -6,7 +6,7 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/04 23:16:53 by gborne            #+#    #+#              #
-#    Updated: 2022/11/24 23:07:52 by gborne           ###   ########.fr        #
+#    Updated: 2022/11/24 23:18:40 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS			=	main.cpp \
 					test/test_bst.cpp \
 					test/test_stack.cpp \
 					test/test_speed.cpp
+
 
 OBJS			= $(SRCS:.cpp=.o)
 

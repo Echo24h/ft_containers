@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:14:06 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 22:59:18 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 23:39:44 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ int	test_stack( void ) {
 
 	//std_stack.swap(new_std_stack); ft_stack.swap(new_ft_stack);
 	check("size()", std_stack.size(), ft_stack.size());
-
 	return 0;
 }

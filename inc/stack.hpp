@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:20:28 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 22:57:49 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 23:36:10 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ public:
 	}
 
 	virtual	~stack( void ) {
-		std::cout << "destructor stack" << std::endl;
+		std::cout << "destructor called" << std::endl;
 		return ; }
 
 	// FUNCTIONS

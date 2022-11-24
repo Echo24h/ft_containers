@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:20:28 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 23:05:07 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 23:39:02 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ public:
 			_alloc.deallocate(_ptr, _capacity);
 		_alloc = rhs._alloc;
 		_capacity = rhs._capacity;
-		_ptr = _alloc.allocate(_capacity);
+		if (_capacity > 0)
+			_ptr = _alloc.allocate(_capacity);
+		else
+			_ptr = NULL;
 		_size = rhs._size;
 		for (size_type i = 0; i < _size; i++)
 			_ptr[i] = rhs._ptr[i];
@@ -86,12 +89,7 @@ public:
 	}
 
 	~vector( void ) {
-		while (_size)
-			_alloc.destroy(&_ptr[--_size]);
-		if (_capacity > 0) {
-			_alloc.deallocate(_ptr, _capacity);
-		}
-		std::cout << "destructor vector" << std::endl;
+		_alloc.deallocate(_ptr, _capacity);
 		return ;
 	}
 
