@@ -6,11 +6,12 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/04 23:16:53 by gborne            #+#    #+#              #
-#    Updated: 2022/11/17 16:45:11 by gborne           ###   ########.fr        #
+#    Updated: 2022/11/24 01:40:46 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	main.cpp \
+					test/test.cpp \
 					test/test_vector.cpp \
 					test/test_map.cpp \
 					test/test_bst.cpp
@@ -19,7 +20,7 @@ OBJS			= $(SRCS:.cpp=.o)
 
 CXX				= g++
 RM				= rm -f
-CXXFLAGS		= -Wall -Wextra -Werror
+CXXFLAGS		= -Wall -Wextra -Werror -std=c++98
 
 NAME			= check
 

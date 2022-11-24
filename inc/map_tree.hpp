@@ -56,7 +56,6 @@ public:
 	}
 
 	map_tree &	operator=( map_tree const & rhs ) {
-		_end = NULL;
 		_alloc = rhs._alloc;
 		_size = 0;
 		_root = NULL;

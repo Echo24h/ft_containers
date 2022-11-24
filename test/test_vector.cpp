@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:14:06 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/22 12:39:42 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 02:16:30 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	test_vector( void ) {
 	std::vector<int>::iterator std_it = std_vector.begin();
 
 	check("*it/*begin()", *std_it, *ft_it);
-	check("*end()", *std_vector.end(), *ft_vector.end());
+	//check("*end()", *std_vector.end(), *ft_vector.end());
 	check("*it++", *std_it++, *ft_it++);
 	check("*++it", *++std_it, *++ft_it);
 	check("*it--", *std_it--, *ft_it--);
@@ -78,7 +78,7 @@ int	test_vector( void ) {
 	std::vector<int>::reverse_iterator std_rit = std_vector.rbegin();
 
 	check("*rit", *std_rit, *ft_rit);
-	check("*rend()", *std_vector.rend(), *ft_vector.rend());
+	//check("*rend()", *std_vector.rend(), *ft_vector.rend());
 	check("*rbegin()", *std_vector.rbegin(), *ft_vector.rbegin());
 	check("rit[5]", std_rit[5], ft_rit[5]);
 	check("rit[8]", std_rit[8], ft_rit[8]);

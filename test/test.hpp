@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:11:49 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/23 20:44:15 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 01:44:39 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,131 +29,38 @@
 #define	MAGENTA "\033[1;35m"
 #define	DEF "\033[0m"
 
-// VECTOR
+void	check( const std::string & test_name, const int & std_value, const int & ft_value, bool isNull = false );
 
-template < typename T >
-void	check( const std::string & test_name, const T & std_value, const T & ft_value, bool isNull = false ) {
+void	check_vec_cont( const std::string & test_name, std::vector<int> & std_cont, ft::vector<int> & ft_cont );
 
-	std::cout << test_name << ": " << "std=" << std_value << " ft=" << ft_value << " ";
-	if (isNull)
-		std::cout << YELLOW << "null" << DEF;
-	else if (std_value == ft_value)
-		std::cout << GREEN << "OK" << DEF;
-	else
-		std::cout << RED << "KO" << DEF;
-	std::cout << std::endl;
-	return ;
-}
 
-template < typename T >
-void	check_vec_cont( const std::string & test_name, std::vector<T> & std_cont, ft::vector<T> & ft_cont ) {
+void	check_pair( const std::string & test_name, 
+			const std::map<int, int>::iterator & std_value, 
+			const ft::map<int, int>::iterator & ft_value, 
+			bool isNull = false );
 
-	ft::vector<int>::iterator ft_it = ft_cont.begin();
-	std::vector<int>::iterator std_it = std_cont.begin();
+void	check_const_pair( const std::string & test_name, 
+			const std::map<int, int>::const_iterator & std_value, 
+			const ft::map<int, int>::const_iterator & ft_value, 
+			bool isNull = false );
 
-	ft::vector<int>::iterator ft_ite = ft_cont.end();
-	std::vector<int>::iterator std_ite = std_cont.end();
+void	check_rconst_pair( const std::string & test_name, 
+			const std::map<int, int>::const_reverse_iterator & std_value, 
+			const ft::map<int, int>::const_reverse_iterator & ft_value, 
+			bool isNull = false );
 
-	std::cout << test_name << ": " << BLUE << "content " << DEF;
+void	check_pair_char( const std::string & test_name, 
+			const std::map<char, int>::iterator & std_value, 
+			const ft::map<char, int>::iterator & ft_value, 
+			bool isNull = false  );
 
-	while (ft_it != ft_ite && std_it != std_ite) {
-		if (*ft_it != *std_it)
-			break ;
-		*ft_it++;
-		*std_it++;
-	}
-	if (ft_it != ft_ite || std_it != std_ite)
-		std::cout << RED << "KO" << DEF;
-	else
-		std::cout << GREEN << "OK" << DEF;
-	std::cout << std::endl;
-	return ;
-}
+void	check_pair_it( const std::string & test_name, 
+			const std::pair<std::map<int, int>::iterator, bool>  & std_value, 
+			const ft::pair<ft::map<int, int>::iterator,bool> & ft_value );
 
-// MAP
-
-/*
-template < typename T, typename U >
-void	print_map(std::map<T, U> map) {
-	for (typename std::map<T, U>::iterator it = map.begin(); it != map.end(); ++it)
-		std::cout << it->first << " => " << it->second << std::endl;
-}
-
-template < typename T, typename U >
-void	print_map(typename ft::map<T,U> map) {
-	for (typename ft::map<T,U>::iterator it = map.begin(); it != map.end(); ++it)
-		std::cout << it->first << " => " << it->second << std::endl;
-}
-*/
-
-template < typename std_map_it = std::map<int, int>::iterator, typename ft_map_it = ft::map<int, int>::iterator >
-void	check_pair( const std::string & test_name, const std_map_it & std_value, const ft_map_it & ft_value, bool isNull = false ) {
-
-	std::cout << test_name << ": ";
-	std::cout << std_value->first << " => " << std_value->second << " | ";
-	std::cout << ft_value->first << " => " << ft_value->second << " ";
-	if (isNull)
-		std::cout << YELLOW << "null" << DEF;
-	else if (std_value->first == ft_value->first && std_value->second == ft_value->second)
-		std::cout << GREEN << "OK" << DEF;
-	else
-		std::cout << RED << "KO" << DEF;
-	std::cout << std::endl;
-	return ;
-}
-
-template < typename std_map_it = std::map<char, int>::iterator, typename ft_map_it = ft::map<char, int>::iterator >
-void	check_pair_char( const std::string & test_name, const std_map_it & std_value, const ft_map_it & ft_value, bool isNull = false  ) {
-
-	std::cout << test_name << ": ";
-	std::cout << std_value->first << " => " << std_value->second << " | ";
-	std::cout << ft_value->first << " => " << ft_value->second << " ";
-	if (isNull)
-		std::cout << YELLOW << "null" << DEF;
-	else if (std_value->first == ft_value->first && std_value->second == ft_value->second)
-		std::cout << GREEN << "OK" << DEF;
-	else
-		std::cout << RED << "KO" << DEF;
-	std::cout << std::endl;
-	return ;
-}
-
-template < typename std_map_it = std::map<int, int>::iterator, typename ft_map_it = ft::map<int, int>::iterator, class std_pair = std::pair<std_map_it, bool> ,class ft_pair = ft::pair<ft_map_it,bool> >
-void	check_pair_it( const std::string & test_name, const std_pair & std_value, const ft_pair & ft_value ) {
-
-	std::cout << test_name << ": ";
-	std::cout << std_value.first->first << " => " << std_value.first->second << " bool=" <<std_value.second << " | ";
-	std::cout << ft_value.first->first << " => " << ft_value.first->second << " bool=" <<ft_value.second;
-	if (std_value.first->first == ft_value.first->first
-	&& std_value.first->second == ft_value.first->second
-	&& std_value.second == ft_value.second)
-		std::cout << GREEN << " OK" << DEF;
-	else
-		std::cout << RED << " KO" << DEF;
-	std::cout << std::endl;
-	return ;
-}
-
-template < typename std_map_it = std::map<int, int>::iterator, typename ft_map_it = ft::map<int, int>::iterator >
 void	check_map_cont( const std::string & test_name,
-		std_map_it std_it, std_map_it std_ite,
-		ft_map_it ft_it, ft_map_it ft_ite ) {
-
-	std::cout << test_name << ": " << BLUE << "content " << DEF;
-
-	while (ft_it != ft_ite && std_it != std_ite) {
-		if (ft_it->first != std_it->first || ft_it->second != std_it->second )
-			break ;
-		ft_it++;
-		std_it++;
-	}
-	if (ft_it != ft_ite || std_it != std_ite)
-		std::cout << RED << "KO" << DEF;
-	else
-		std::cout << GREEN << "OK" << DEF;
-	std::cout << std::endl;
-	return ;
-}
+			std::map<int, int>::iterator std_it, std::map<int, int>::iterator std_ite,
+			ft::map<int, int>::iterator ft_it, ft::map<int, int>::iterator ft_ite );
 
 int	test_vector( void );
 int	test_map( void );

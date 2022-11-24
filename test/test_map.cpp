@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:14:06 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/23 23:01:26 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/24 02:14:54 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,16 @@ int	test_map( void ) {
 	check("empty()", std_map.empty(), ft_map.empty());
 	check("max_size()", std_map.max_size(), ft_map.max_size(), true);
 
-	check_pair("it", std_map.begin(), ft_map.begin());
-	check_pair("ite", std_map.end(), ft_map.end());
-
 	std_map.insert(std_pair(30, 10));
 	ft_map.insert(ft_pair(30, 10));
 
 	check("size()", std_map.size(), ft_map.size());
 	check("empty()", std_map.empty(), ft_map.empty());
 
-	check_pair("it", std_map.begin(), ft_map.begin());
-	check_pair("ite", std_map.end(), ft_map.end(), true);
-
 	std_map.clear(), ft_map.clear();
 
 	check("empty()", std_map.empty(), ft_map.empty());
 	check("size()", std_map.size(), ft_map.size());
-
-	check_pair("it", std_map.begin(), ft_map.begin());
-	check_pair("ite", std_map.end(), ft_map.end());
 
 	std_map.insert(std_pair(30, 10));
 	ft_map.insert(ft_pair(30, 10));
@@ -91,11 +82,11 @@ int	test_map( void ) {
 	}
 
 	{
-		//ft::map<int, int>	new_ft_map(ft_map);
-		//std::map<int, int>	new_std_map(std_map);
+		ft::map<int, int>	new_ft_map(ft_map);
+		std::map<int, int>	new_std_map(std_map);
 
-		//check_map_cont("newMap(map)", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
-		//check("size()", std_map.size(), ft_map.size());
+		check_map_cont("newMap(map)", new_std_map.begin(), new_std_map.end(), new_ft_map.begin(), new_ft_map.end());
+		check("size()", std_map.size(), ft_map.size());
 	}
 
 	{
@@ -130,16 +121,19 @@ int	test_map( void ) {
 			for (int i = 0; i < 30; i++)
 				stdIt--, ftIt--;
 			check_pair("it-- (x30)", stdIt, ftIt);
-			for (int i = 0; i < 60; i++)
+
+			// Test for Ubuntu, C++11
+			
+			/*for (int i = 0; i < 60; i++)
 				stdIt++, ftIt++;
 			check_pair("it++ (x60)", stdIt, ftIt, true);
 			for (int i = 0; i < 60; i++)
 				stdIt--, ftIt--;
-			check_pair("it-- (x60)", stdIt, ftIt);
+			check_pair("it-- (x60)", stdIt, ftIt);*/
 
 			//ite
 
-			check_pair("ite", stdIte, ftIte, true);
+			//check_pair("ite", stdIte, ftIte, true);
 			check_pair("--ite", --stdIte, --ftIte);
 			check_pair("--ite", --stdIte, --ftIte);
 			for (int i = 0; i < 30; i++)
@@ -148,16 +142,19 @@ int	test_map( void ) {
 			for (int i = 0; i < 30; i++)
 				stdIte++, ftIte++;
 			check_pair("ite++ (x30)", stdIte, ftIte);
-			for (int i = 0; i < 60; i++)
+
+			// Test for Ubuntu, C++11
+
+			/*for (int i = 0; i < 60; i++)
 				stdIte--, ftIte--;
 			check_pair("ite-- (x60)", stdIte, ftIte);
 			for (int i = 0; i < 60; i++)
 				stdIte++, ftIte++;
-			check_pair("ite++ (x60)", stdIte, ftIte);
-			check_pair("++ite", ++stdIte, ++ftIte, true);
+			check_pair("ite++ (x60)", stdIte, ftIte);*/
 			check_pair("++ite", ++stdIte, ++ftIte);
-			check_pair("++ite", ++stdIte, ++ftIte, true);
-			check_pair("++ite", ++stdIte, ++ftIte);
+			//check_pair("++ite", ++stdIte, ++ftIte);
+			//check_pair("++ite", ++stdIte, ++ftIte, true);
+			//check_pair("++ite", ++stdIte, ++ftIte);
 			check_pair("--ite", --stdIte, --ftIte);
 			check_pair("--ite", --stdIte, --ftIte);
 			check_pair("--ite", --stdIte, --ftIte);
@@ -176,8 +173,8 @@ int	test_map( void ) {
 			// TEST CONST_ITERATOR
 			//stdCit->second = 100;
 			//ftCit->second = 100;
-			check_pair("cit", stdCit, ftCit);
-			check_pair("++cit", ++stdCit, ++ftCit);
+			check_const_pair("cit", stdCit, ftCit);
+			check_const_pair("++cit", ++stdCit, ++ftCit);
 
 		}
 
@@ -192,48 +189,57 @@ int	test_map( void ) {
 
 			// it
 
-			check_pair("crit", stdRit, ftRit);
-			check_pair("++crit", ++stdRit, ++ftRit);
-			check_pair("++crit", ++stdRit, ++ftRit);
+			check_rconst_pair("crit", stdRit, ftRit);
+			check_rconst_pair("++crit", ++stdRit, ++ftRit);
+			check_rconst_pair("++crit", ++stdRit, ++ftRit);
 			for (int i = 0; i < 30; i++)
 				stdRit++, ftRit++;
-			check_pair("crit++ (x30)", stdRit, ftRit);
+			check_rconst_pair("crit++ (x30)", stdRit, ftRit);
 			for (int i = 0; i < 30; i++)
 				stdRit--, ftRit--;
-			check_pair("crit-- (x30)", stdRit, ftRit);
-			for (int i = 0; i < 60; i++)
+			check_rconst_pair("crit-- (x30)", stdRit, ftRit);
+
+			// Test for Ubuntu, C++11
+
+			/*for (int i = 0; i < 60; i++)
 				stdRit++, ftRit++;
-			check_pair("crit++ (x60)", stdRit, ftRit);
+			check_rconst_pair("crit++ (x60)", stdRit, ftRit);
 			for (int i = 0; i < 60; i++)
 				stdRit--, ftRit--;
-			check_pair("crit-- (60)", stdRit, ftRit);
-			check_pair("--crit", --stdRit, --ftRit);
-			check_pair("--crit", --stdRit, --ftRit);
-			check_pair("--crit", --stdRit, --ftRit);
-			check_pair("--crit", --stdRit, --ftRit);
-			check_pair("++crit", ++stdRit, ++ftRit);
-			check_pair("++crit", ++stdRit, ++ftRit);
-			check_pair("++crit", ++stdRit, ++ftRit);
+			check_rconst_pair("crit-- (60)", stdRit, ftRit);*/
+
+			
+			check_rconst_pair("--crit", --stdRit, --ftRit);
+			check_rconst_pair("--crit", --stdRit, --ftRit);
+			//check_rconst_pair("--crit", --stdRit, --ftRit);
+			//check_rconst_pair("--crit", --stdRit, --ftRit);
+			check_rconst_pair("++crit", ++stdRit, ++ftRit);
+			check_rconst_pair("++crit", ++stdRit, ++ftRit);
+			check_rconst_pair("++crit", ++stdRit, ++ftRit);
 
 			//ite
 
-			check_pair("crite", stdRite, ftRite, true);
-			check_pair("--crite", --stdRite, --ftRite);
-			check_pair("--crite", --stdRite, --ftRite);
+			//check_rconst_pair("crite", stdRite, ftRite, true);
+			check_rconst_pair("--crite", --stdRite, --ftRite);
+			check_rconst_pair("--crite", --stdRite, --ftRite);
 			for (int i = 0; i < 30; i++)
 				stdRite--, ftRite--;
-			check_pair("crite-- (x30)", stdRite, ftRite);
+			check_rconst_pair("crite-- (x30)", stdRite, ftRite);
 			for (int i = 0; i < 30; i++)
 				stdRite++, ftRite++;
-			check_pair("crite++ (x30)", stdRite, ftRite);
-			for (int i = 0; i < 60; i++)
+			check_rconst_pair("crite++ (x30)", stdRite, ftRite);
+
+			// Test for Ubuntu, C++11
+
+			/*for (int i = 0; i < 60; i++)
 				stdRite--, ftRite--;
-			check_pair("crite-- (x60)", stdRite, ftRite);
+			check_rconst_pair("crite-- (x60)", stdRite, ftRite);
 			for (int i = 0; i < 60; i++)
 				stdRite++, ftRite++;
-			check_pair("crite++ (x60)", stdRite, ftRite);
-			check_pair("++crite", ++stdRite, ++ftRite);
-			check_pair("--crite", --stdRite, --ftRite);
+			check_rconst_pair("crite++ (x60)", stdRite, ftRite);*/
+
+			check_rconst_pair("++crite", ++stdRite, ++ftRite);
+			check_rconst_pair("--crite", --stdRite, --ftRite);
 		}
 
 		std::cout << MAGENTA << "<char>end()" << DEF << std::endl;
@@ -252,14 +258,14 @@ int	test_map( void ) {
 				ft_char_map.insert(ft_pair(i, 10));
 			}
 
-			std::cout << "<char>begin(): " << std_char_map.end()->first << " => " << std_char_map.end()->second;
-			std::cout << " | " << ft_char_map.end()->first << " => " << ft_char_map.end()->second;
-			std::cout << YELLOW << " null" << DEF << std::endl;
+			std::cout << "<char>begin(): " << std_char_map.begin()->first << " => " << std_char_map.begin()->second;
+			std::cout << " | " << ft_char_map.begin()->first << " => " << ft_char_map.begin()->second;
+			std::cout << GREEN << " OK" << DEF << std::endl;
 
 
-			std::cout << "<char>rend(): " << std_char_map.rend()->first << " => " << std_char_map.rend()->second;
-			std::cout << " | " << ft_char_map.rend()->first << " => " << ft_char_map.rend()->second;
-			std::cout << YELLOW << " null" << DEF << std::endl;
+			std::cout << "<char>rbegin(): " << std_char_map.rbegin()->first << " => " << std_char_map.rbegin()->second;
+			std::cout << " | " << ft_char_map.rbegin()->first << " => " << ft_char_map.rbegin()->second;
+			std::cout << GREEN << " OK" << DEF << std::endl;
 
 			check("<char>size()", std_char_map.size(), ft_char_map.size());
 		}
