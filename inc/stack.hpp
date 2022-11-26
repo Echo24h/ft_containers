@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:20:28 by gborne            #+#    #+#             */
-/*   Updated: 2022/11/24 23:36:10 by gborne           ###   ########.fr       */
+/*   Updated: 2022/11/26 19:01:25 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ public:
 	// CANONICAL FORM
 
 	explicit stack( const container_type & cont = container_type() )
-		: _cont(cont) {
+		: cont(cont) {
 		return ;
 	}
 
@@ -42,64 +42,67 @@ public:
 	}
 
 	stack &	operator=( stack const & rhs ) {
-		_cont = rhs._cont;
+		cont = rhs.cont;
 		return *this;
 	}
 
-	virtual	~stack( void ) {
-		std::cout << "destructor called" << std::endl;
-		return ; }
+	virtual	~stack( void ) { return ; }
 
 	// FUNCTIONS
 
-	bool empty() const { return _cont.empty(); }
+	bool empty() const { return cont.empty(); }
 
-	size_type	size( void ) const { return _cont.size(); };
+	size_type	size( void ) const { return cont.size(); };
 
-	value_type & top() { return _cont.back(); }
+	value_type & top() { return cont.back(); }
 
-	const value_type & top() const { return _cont.back(); }
+	const value_type & top() const { return cont.back(); }
 
-	void push ( const value_type & val ) { _cont.push_back(val); return ; }
+	void push ( const value_type & val ) { cont.push_back(val); return ; }
 
-	void pop() { _cont.pop_back(); return ; }
+	void pop() { cont.pop_back(); return ; }
 
-	void swap( stack & x ) { _cont.swap(x._cont); return ; }
+	void swap( stack & x ) { cont.swap(x.cont); return ; }
 
-private:
+public:
 
-	container_type	_cont;
+	container_type	cont;
 
 };
 
 template <class T, class Container>
 bool operator== ( const stack<T,Container> & lhs , const stack<T,Container> & rhs ) {
-	return (lhs._cont == rhs._cont);
+	return (lhs.cont == rhs.cont);
 }
 
 template <class T, class Container>
 bool operator!= ( const stack<T,Container> & lhs , const stack<T,Container> & rhs ) {
-	return (lhs._cont != rhs._cont);
+	return (lhs.cont != rhs.cont);
 }
 
 template <class T, class Container>
 bool operator<  ( const stack<T,Container> & lhs , const stack<T,Container> & rhs ) {
-	return (lhs._cont < rhs._cont);
+	return (lhs.cont < rhs.cont);
 }
 
 template <class T, class Container>
 bool operator<= ( const stack<T,Container> & lhs , const stack<T,Container> & rhs ) {
-	return (lhs._cont <= rhs._cont);
+	return (lhs.cont <= rhs.cont);
 }
 
 template <class T, class Container>
 bool operator>  ( const stack<T,Container> & lhs , const stack<T,Container> & rhs ) {
-	return (lhs._cont > rhs._cont);
+	return (lhs.cont > rhs.cont);
 }
 
 template <class T, class Container>
 bool operator>= ( const stack<T,Container> & lhs , const stack<T,Container> & rhs ) {
-	return (lhs._cont >= rhs._cont);
+	return (lhs.cont >= rhs.cont);
+}
+
+template <class T, class Container>
+void swap ( stack<T,Container> & x, stack<T,Container> & y ) {
+	x.swap(y);
 }
 
 } // namespace ft
