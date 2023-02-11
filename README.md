@@ -1,10 +1,15 @@
-# ft_containers
-Une ré-implémentation des containers de base en C++98 (vector, map &amp; stack)
+Utilisation (pour les tests):
+```
+make
+./check map
+./check vec
+./check stack
+./check bst
+./check speed
+```
 
 ## Ressources
 ***
-Ressources utilisées dans ce projet:
-
 * https://en.cppreference.com/
 * https://cplusplus.com/
 * https://en.wikipedia.org/wiki/Binary_search_tree
