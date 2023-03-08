@@ -5,6 +5,7 @@ Une fois le projet compilé avec make, vous pouvez lancer des tests de comparais
 * `./check map` pour comparer std::map et ft::map
 * `./check vec` pour comparer std::vector et ft::vector
 * `./check stack` pour comparer std::stack et ft::stack
+
 Le projet comprend également un test de vitesse pour évaluer les performances des conteneurs en comparaison avec les versions officielles. Vous pouvez lancer ce test en utilisant la commande `./check speed`.
 
 Pour vous aider dans votre implémentation, des ressources telles que https://en.cppreference.com/, https://cplusplus.com/ et https://en.wikipedia.org/wiki/Binary_search_tree sont mises à votre disposition. Vous pouvez également trouver des exemples de code pour les arbres de recherche binaire sur https://www.geeksforgeeks.org/binary-search-tree-data-structure/.
