@@ -1,10 +1,19 @@
-Utilisation (pour les tests):
-```
+## Test:
+```Makefile
+
+# Compile le projet
 make
+
+# Lance les test de comparaisons entre les librairies (ft::) et (std::)
+
+# Compare std::map et ft::map
 ./check map
+# Compare std::vector et ft::vector
 ./check vec
+# Compare std::stack et ft::stack
 ./check stack
-./check bst
+
+# Test la vitesse
 ./check speed
 ```
 
