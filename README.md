@@ -1,6 +1,6 @@
 Le projet consiste à réécrire les conteneurs standards de la bibliothèque C++98 tels que `std::map`, `std::vector` et `std::stack`, ainsi que leurs itérateurs, en implémentant les mêmes fonctionnalités que les versions officielles. Cela implique également la création d'un arbre binaire de recherche, similaire à celui utilisé dans std::map.
 
-Une fois le projet compilé avec make, vous pouvez lancer des tests de comparaison entre les conteneurs officiels et ceux que vous avez créés en utilisant les commandes suivantes :
+Une fois le projet compilé avec `make`, vous pouvez lancer des tests de comparaison entre les conteneurs officiels et ceux que vous avez créés en utilisant les commandes suivantes :
 
 * `./check map` pour comparer std::map et ft::map
 * `./check vec` pour comparer std::vector et ft::vector
